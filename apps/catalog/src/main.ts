@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { CatalogModule } from './catalog.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { Logger } from '@nestjs/common';
+import { applyToMicroserviceLayer } from '@app/rpc';
 
 async function bootstrap() {
   process.title = 'catalog';
@@ -26,6 +27,9 @@ async function bootstrap() {
       },
     },
   );
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  applyToMicroserviceLayer(app);
 
   app.enableShutdownHooks();
   await app.listen();
