@@ -6,13 +6,13 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 async function bootstrap() {
   process.title = 'media';
   const logger = new Logger('MediaBootstrap');
- const rmqUrl = process.env.RABBITMQ_URL ?? 'amqp://localhost:5673';
+  const rmqUrl = process.env.RABBITMQ_URL ?? 'amqp://localhost:5673';
 
   const queue = process.env.MEDIA_QUEUE ?? 'media_queue';
   //create an microservices instance
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     MediaModule,
-   {
+    {
       transport: Transport.RMQ,
       options: {
         urls: [rmqUrl],

@@ -8,14 +8,14 @@ async function bootstrap() {
 
   const logger = new Logger('CatalogBootstrap');
 
- const rmqUrl = process.env.RABBITMQ_URL ?? 'amqp://localhost:5673';
+  const rmqUrl = process.env.RABBITMQ_URL ?? 'amqp://localhost:5673';
 
-  const queue = process.env.MEDIA_QUEUE ?? 'catalog_queue';
+  const queue = process.env.CATALOG_QUEUE ?? 'catalog_queue';
 
   //create an microservices instance
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     CatalogModule,
-   {
+    {
       transport: Transport.RMQ,
       options: {
         urls: [rmqUrl],

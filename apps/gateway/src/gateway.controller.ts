@@ -2,6 +2,7 @@ import { Controller, Get, Inject } from '@nestjs/common';
 import { GatewayService } from './gateway.service';
 import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
+import { Public } from './auth/public.decorator';
 
 @Controller()
 export class GatewayController {
@@ -13,6 +14,7 @@ export class GatewayController {
   ) {}
 
   @Get('health')
+  @Public()
  async health() {
     const ping = async (serviceName: string, client: ClientProxy) => {
       try {
@@ -55,5 +57,11 @@ export class GatewayController {
         search,
       },
     };
+  }
+
+  @Get('hello')
+  @Public()
+  hello() {
+    return { message: 'Hello from Gateway!' };
   }
 }
